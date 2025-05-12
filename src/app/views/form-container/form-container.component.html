@@ -1,0 +1,546 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Cundinamarca Emprende</a>
+      <button class="btn btn-light ms-auto" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </nav>
+  
+  <div class="container bg-white p-4 rounded shadow">
+    <h2 class="text-center mb-4 text-primary">Formulario de Caracterización</h2>
+    
+    <form (ngSubmit)="submitForm()">
+      <!-- Basic Information Section -->
+      <div class="form-section">
+        <h4 class="text-primary">Información Básica</h4>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="companyName" class="form-label">Nombre de la empresa:</label>
+            <input type="text" class="form-control" id="companyName" 
+                   [(ngModel)]="formData.companyName" 
+                   (change)="updateField('companyName', formData.companyName)"
+                   name="companyName">
+          </div>
+          <div class="col-md-6">
+            <label for="naturalPerson" class="form-label">Nombre de la persona natural:</label>
+            <input type="text" class="form-control" id="naturalPerson" 
+                   [(ngModel)]="formData.naturalPerson"
+                   (change)="updateField('naturalPerson', formData.naturalPerson)"
+                   name="naturalPerson">
+          </div>
+        </div>
+  
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="municipality" class="form-label">Municipio:</label>
+            <input type="text" class="form-control" id="municipality" 
+                   [(ngModel)]="formData.municipality"
+                   (change)="updateField('municipality', formData.municipality)"
+                   name="municipality">
+          </div>
+          <div class="col-md-4">
+            <label for="meetingDate" class="form-label">Fecha de encuentro:</label>
+            <input type="date" class="form-control" id="meetingDate" 
+                   [(ngModel)]="formData.meetingDate"
+                   (change)="updateField('meetingDate', formData.meetingDate)"
+                   name="meetingDate">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Sexo:</label>
+            <div class="custom-radio">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="Mujer" 
+                       [checked]="formData.gender === 'Mujer'"
+                       (change)="updateField('gender', 'Mujer')"
+                       name="gender"> Mujer
+              </label>
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="Hombre" 
+                       [checked]="formData.gender === 'Hombre'"
+                       (change)="updateField('gender', 'Hombre')"
+                       name="gender"> Hombre
+              </label>
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="Otro" 
+                       [checked]="formData.gender === 'Otro'"
+                       (change)="updateField('gender', 'Otro')"
+                       name="gender"> Otro
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Business Type Section -->
+      <div class="form-section">
+        <h4 class="text-primary">Tipo de Emprendimiento</h4>
+        <div class="mb-3">
+          <div class="custom-checkbox">
+            <label>
+              <input type="checkbox" value="Asociación" 
+                     [checked]="formData.businessType.includes('Asociación')"
+                     (change)="toggleCheckbox('businessType', 'Asociación', $event)"> Asociación
+            </label>
+            <label>
+              <input type="checkbox" value="Pre cooperativa" 
+                     [checked]="formData.businessType.includes('Pre cooperativa')"
+                     (change)="toggleCheckbox('businessType', 'Pre cooperativa', $event)"> Pre cooperativa
+            </label>
+            <label>
+              <input type="checkbox" value="Cooperativa" 
+                     [checked]="formData.businessType.includes('Cooperativa')"
+                     (change)="toggleCheckbox('businessType', 'Cooperativa', $event)"> Cooperativa
+            </label>
+            <label>
+              <input type="checkbox" value="Corporación" 
+                     [checked]="formData.businessType.includes('Corporación')"
+                     (change)="toggleCheckbox('businessType', 'Corporación', $event)"> Corporación
+            </label>
+            <label>
+              <input type="checkbox" value="Fundación" 
+                     [checked]="formData.businessType.includes('Fundación')"
+                     (change)="toggleCheckbox('businessType', 'Fundación', $event)"> Fundación
+            </label>
+            <label>
+              <input type="checkbox" value="En Comandita" 
+                     [checked]="formData.businessType.includes('En Comandita')"
+                     (change)="toggleCheckbox('businessType', 'En Comandita', $event)"> En Comandita
+            </label>
+            <label>
+              <input type="checkbox" value="S.A" 
+                     [checked]="formData.businessType.includes('S.A')"
+                     (change)="toggleCheckbox('businessType', 'S.A', $event)"> S.A
+            </label>
+            <label>
+              <input type="checkbox" value="EAT" 
+                     [checked]="formData.businessType.includes('EAT')"
+                     (change)="toggleCheckbox('businessType', 'EAT', $event)"> EAT
+            </label>
+            <label>
+              <input type="checkbox" value="S.A.S" 
+                     [checked]="formData.businessType.includes('S.A.S')"
+                     (change)="toggleCheckbox('businessType', 'S.A.S', $event)"> S.A.S
+            </label>
+            <label>
+              <input type="checkbox" value="LTDA" 
+                     [checked]="formData.businessType.includes('LTDA')"
+                     (change)="toggleCheckbox('businessType', 'LTDA', $event)"> LTDA
+            </label>
+            <label>
+              <input type="checkbox" value="Idea de negocio" 
+                     [checked]="formData.businessType.includes('Idea de negocio')"
+                     (change)="toggleCheckbox('businessType', 'Idea de negocio', $event)"> Idea de negocio
+            </label>
+            <label>
+              <input type="checkbox" value="Otra" 
+                     [checked]="formData.businessType.includes('Otra')"
+                     (change)="toggleCheckbox('businessType', 'Otra', $event)"> Otra
+            </label>
+          </div>
+          <div *ngIf="formData.businessType.includes('Otra')" class="mt-2">
+            <input type="text" class="form-control" placeholder="¿Cuál?" 
+                   [(ngModel)]="formData.otherBusinessType"
+                   (change)="updateField('otherBusinessType', formData.otherBusinessType)"
+                   name="otherBusinessType">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Contact Information -->
+      <div class="form-section">
+        <h4 class="text-primary">Información de Contacto</h4>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="email" class="form-label">Correo Electrónico:</label>
+            <input type="email" class="form-control" id="email" 
+                   [(ngModel)]="formData.email"
+                   (change)="updateField('email', formData.email)"
+                   name="email">
+          </div>
+          <div class="col-md-6">
+            <label for="phone" class="form-label">Número de Contacto:</label>
+            <input type="tel" class="form-control" id="phone" 
+                   [(ngModel)]="formData.phone"
+                   (change)="updateField('phone', formData.phone)"
+                   name="phone">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Dirección:</label>
+          <input type="text" class="form-control" id="address" 
+                 [(ngModel)]="formData.address"
+                 (change)="updateField('address', formData.address)"
+                 name="address">
+        </div>
+        <div class="mb-3">
+          <label for="responsible" class="form-label">Responsable del fortalecimiento (Tallerista y líder del centro):</label>
+          <input type="text" class="form-control" id="responsible" 
+                 [(ngModel)]="formData.responsible"
+                 (change)="updateField('responsible', formData.responsible)"
+                 name="responsible">
+        </div>
+      </div>
+  
+      <!-- Business Activity -->
+      <div class="form-section">
+        <h4 class="text-primary">Actividad Económica</h4>
+        <div class="mb-3">
+          <label class="form-label">Actividad de la idea de negocio / Sector económico:</label>
+          <div class="custom-checkbox">
+            <label>
+              <input type="checkbox" value="Agrícola" 
+                     [checked]="formData.economicSector.includes('Agrícola')"
+                     (change)="toggleCheckbox('economicSector', 'Agrícola', $event)"> Agrícola
+            </label>
+            <label>
+              <input type="checkbox" value="Pecuario" 
+                     [checked]="formData.economicSector.includes('Pecuario')"
+                     (change)="toggleCheckbox('economicSector', 'Pecuario', $event)"> Pecuario
+            </label>
+            <label>
+              <input type="checkbox" value="Agroindustrial" 
+                     [checked]="formData.economicSector.includes('Agroindustrial')"
+                     (change)="toggleCheckbox('economicSector', 'Agroindustrial', $event)"> Agroindustrial
+            </label>
+            <label>
+              <input type="checkbox" value="Artesanal" 
+                     [checked]="formData.economicSector.includes('Artesanal')"
+                     (change)="toggleCheckbox('economicSector', 'Artesanal', $event)"> Artesanal
+            </label>
+            <label>
+              <input type="checkbox" value="Minería" 
+                     [checked]="formData.economicSector.includes('Minería')"
+                     (change)="toggleCheckbox('economicSector', 'Minería', $event)"> Minería
+            </label>
+            <label>
+              <input type="checkbox" value="Comercial" 
+                     [checked]="formData.economicSector.includes('Comercial')"
+                     (change)="toggleCheckbox('economicSector', 'Comercial', $event)"> Comercial
+            </label>
+            <label>
+              <input type="checkbox" value="Industrial" 
+                     [checked]="formData.economicSector.includes('Industrial')"
+                     (change)="toggleCheckbox('economicSector', 'Industrial', $event)"> Industrial
+            </label>
+            <label>
+              <input type="checkbox" value="Transporte" 
+                     [checked]="formData.economicSector.includes('Transporte')"
+                     (change)="toggleCheckbox('economicSector', 'Transporte', $event)"> Transporte
+            </label>
+            <label>
+              <input type="checkbox" value="Turismo" 
+                     [checked]="formData.economicSector.includes('Turismo')"
+                     (change)="toggleCheckbox('economicSector', 'Turismo', $event)"> Turismo
+            </label>
+            <label>
+              <input type="checkbox" value="Otra" 
+                     [checked]="formData.economicSector.includes('Otra')"
+                     (change)="toggleCheckbox('economicSector', 'Otra', $event)"> Otra
+            </label>
+          </div>
+          <div *ngIf="formData.economicSector.includes('Otra')" class="mt-2">
+            <input type="text" class="form-control" placeholder="¿Cuál?" 
+                   [(ngModel)]="formData.otherEconomicSector"
+                   (change)="updateField('otherEconomicSector', formData.otherEconomicSector)"
+                   name="otherEconomicSector">
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Actividad Económica de la Idea de negocio:</label>
+          <div class="custom-checkbox">
+            <label>
+              <input type="checkbox" value="Acopio" 
+                     [checked]="formData.economicActivity.includes('Acopio')"
+                     (change)="toggleCheckbox('economicActivity', 'Acopio', $event)"> Acopio
+            </label>
+            <label>
+              <input type="checkbox" value="Comercialización" 
+                     [checked]="formData.economicActivity.includes('Comercialización')"
+                     (change)="toggleCheckbox('economicActivity', 'Comercialización', $event)"> Comercialización
+            </label>
+            <label>
+              <input type="checkbox" value="Transformación" 
+                     [checked]="formData.economicActivity.includes('Transformación')"
+                     (change)="toggleCheckbox('economicActivity', 'Transformación', $event)"> Transformación
+            </label>
+            <label>
+              <input type="checkbox" value="Agroindustria" 
+                     [checked]="formData.economicActivity.includes('Agroindustria')"
+                     (change)="toggleCheckbox('economicActivity', 'Agroindustria', $event)"> Agroindustria
+            </label>
+            <label>
+              <input type="checkbox" value="Producción" 
+                     [checked]="formData.economicActivity.includes('Producción')"
+                     (change)="toggleCheckbox('economicActivity', 'Producción', $event)"> Producción
+            </label>
+            <label>
+              <input type="checkbox" value="Exportación" 
+                     [checked]="formData.economicActivity.includes('Exportación')"
+                     (change)="toggleCheckbox('economicActivity', 'Exportación', $event)"> Exportación
+            </label>
+            <label>
+              <input type="checkbox" value="Importación" 
+                     [checked]="formData.economicActivity.includes('Importación')"
+                     (change)="toggleCheckbox('economicActivity', 'Importación', $event)"> Importación
+            </label>
+            <label>
+              <input type="checkbox" value="Otra" 
+                     [checked]="formData.economicActivity.includes('Otra')"
+                     (change)="toggleCheckbox('economicActivity', 'Otra', $event)"> Otra
+            </label>
+          </div>
+          <div *ngIf="formData.economicActivity.includes('Otra')" class="mt-2">
+            <input type="text" class="form-control" placeholder="¿Cuál?" 
+                   [(ngModel)]="formData.otherEconomicActivity"
+                   (change)="updateField('otherEconomicActivity', formData.otherEconomicActivity)"
+                   name="otherEconomicActivity">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Members Information -->
+      <div class="form-section">
+        <h4 class="text-primary">Información de Socios/Afiliados</h4>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="membersCount" class="form-label">Número de afiliados / socios:</label>
+            <input type="number" class="form-control" id="membersCount" 
+                   [(ngModel)]="formData.membersCount"
+                   (change)="updateField('membersCount', formData.membersCount)"
+                   name="membersCount">
+          </div>
+          <div class="col-md-6">
+            <label for="differentialMembers" class="form-label">Número de personas, afiliados / socios, con enfoque diferencial:</label>
+            <input type="number" class="form-control" id="differentialMembers" 
+                   [(ngModel)]="formData.differentialMembers"
+                   (change)="updateField('differentialMembers', formData.differentialMembers)"
+                   name="differentialMembers">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Enfoque diferencial:</label>
+          <div class="custom-checkbox">
+            <label>
+              <input type="checkbox" value="Indígena" 
+                     [checked]="formData.differentialFocus.includes('Indígena')"
+                     (change)="toggleCheckbox('differentialFocus', 'Indígena', $event)"> Indígena
+            </label>
+            <label>
+              <input type="checkbox" value="Afro" 
+                     [checked]="formData.differentialFocus.includes('Afro')"
+                     (change)="toggleCheckbox('differentialFocus', 'Afro', $event)"> Afro
+            </label>
+            <label>
+              <input type="checkbox" value="Raizal" 
+                     [checked]="formData.differentialFocus.includes('Raizal')"
+                     (change)="toggleCheckbox('differentialFocus', 'Raizal', $event)"> Raizal
+            </label>
+            <label>
+              <input type="checkbox" value="Víctima del conflicto" 
+                     [checked]="formData.differentialFocus.includes('Víctima del conflicto')"
+                     (change)="toggleCheckbox('differentialFocus', 'Víctima del conflicto', $event)"> Víctima del conflicto
+            </label>
+            <label>
+              <input type="checkbox" value="LGBTIQ+" 
+                     [checked]="formData.differentialFocus.includes('LGBTIQ+')"
+                     (change)="toggleCheckbox('differentialFocus', 'LGBTIQ+', $event)"> LGBTIQ+
+            </label>
+            <label>
+              <input type="checkbox" value="Joven" 
+                     [checked]="formData.differentialFocus.includes('Joven')"
+                     (change)="toggleCheckbox('differentialFocus', 'Joven', $event)"> Joven
+            </label>
+            <label>
+              <input type="checkbox" value="Personas con discapacidad" 
+                     [checked]="formData.differentialFocus.includes('Personas con discapacidad')"
+                     (change)="toggleCheckbox('differentialFocus', 'Personas con discapacidad', $event)"> Personas con discapacidad
+            </label>
+            <label>
+              <input type="checkbox" value="Otra" 
+                     [checked]="formData.differentialFocus.includes('Otra')"
+                     (change)="toggleCheckbox('differentialFocus', 'Otra', $event)"> Otra
+            </label>
+          </div>
+          <div *ngIf="formData.differentialFocus.includes('Otra')" class="mt-2">
+            <input type="text" class="form-control" placeholder="¿Cuál?" 
+                   [(ngModel)]="formData.otherDifferentialFocus"
+                   (change)="updateField('otherDifferentialFocus', formData.otherDifferentialFocus)"
+                   name="otherDifferentialFocus">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Infrastructure -->
+      <div class="form-section">
+        <h4 class="text-primary">Infraestructura e Instalaciones</h4>
+        <div class="mb-3">
+          <label class="form-label">Tipo de infraestructura e instalaciones:</label>
+          <div class="custom-checkbox">
+            <label>
+              <input type="checkbox" value="Propia" 
+                     [checked]="formData.infrastructureType.includes('Propia')"
+                     (change)="toggleCheckbox('infrastructureType', 'Propia', $event)"> Propia
+            </label>
+            <label>
+              <input type="checkbox" value="Arrendada" 
+                     [checked]="formData.infrastructureType.includes('Arrendada')"
+                     (change)="toggleCheckbox('infrastructureType', 'Arrendada', $event)"> Arrendada
+            </label>
+            <label>
+              <input type="checkbox" value="Familiar" 
+                     [checked]="formData.infrastructureType.includes('Familiar')"
+                     (change)="toggleCheckbox('infrastructureType', 'Familiar', $event)"> Familiar
+            </label>
+            <label>
+              <input type="checkbox" value="Comodato" 
+                     [checked]="formData.infrastructureType.includes('Comodato')"
+                     (change)="toggleCheckbox('infrastructureType', 'Comodato', $event)"> Comodato
+            </label>
+          </div>
+          <div class="mt-2">
+            <label for="area" class="form-label">Área (m²):</label>
+            <input type="number" class="form-control" id="area" 
+                   [(ngModel)]="formData.area"
+                   (change)="updateField('area', formData.area)"
+                   name="area">
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Aliados comerciales:</label>
+          <div class="mb-2">
+            <label class="form-label">Públicos:</label>
+            <div class="custom-checkbox">
+              <label>
+                <input type="checkbox" 
+                       [checked]="formData.hasPublicPartners"
+                       (change)="updateField('hasPublicPartners', $event)"> ¿Cuáles?
+              </label>
+            </div>
+            <input *ngIf="formData.hasPublicPartners" type="text" class="form-control mt-1" 
+                   placeholder="Ej: Venta Directa"
+                   [(ngModel)]="formData.publicPartners"
+                   (change)="updateField('publicPartners', formData.publicPartners)"
+                   name="publicPartners">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Privados:</label>
+            <div class="custom-checkbox">
+              <label>
+                <input type="checkbox" 
+                       [checked]="formData.hasPrivatePartners"
+                       (change)="updateField('hasPrivatePartners', $event)"> ¿Cuáles?
+              </label>
+            </div>
+            <input *ngIf="formData.hasPrivatePartners" type="text" class="form-control mt-1" 
+                   [(ngModel)]="formData.privatePartners"
+                   (change)="updateField('privatePartners', formData.privatePartners)"
+                   name="privatePartners">
+          </div>
+          <div>
+            <label class="form-label">Mixto:</label>
+            <div class="custom-checkbox">
+              <label>
+                <input type="checkbox" 
+                       [checked]="formData.hasMixedPartners"
+                       (change)="updateField('hasMixedPartners', $event)"> ¿Cuáles?
+              </label>
+            </div>
+            <input *ngIf="formData.hasMixedPartners" type="text" class="form-control mt-1" 
+                   [(ngModel)]="formData.mixedPartners"
+                   (change)="updateField('mixedPartners', formData.mixedPartners)"
+                   name="mixedPartners">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Financial Information -->
+      <div class="form-section">
+        <h4 class="text-primary">Información Financiera</h4>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="workingCapital" class="form-label">¿Cuál es el Capital de Trabajo? (en pesos):</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" id="workingCapital" 
+                     [(ngModel)]="formData.workingCapital"
+                     (change)="updateField('workingCapital', formData.workingCapital)"
+                     name="workingCapital">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="entityDebt" class="form-label">¿Cuál es el Pasivo de la entidad (Deuda en Pesos)?:</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" id="entityDebt" 
+                     [(ngModel)]="formData.entityDebt"
+                     (change)="updateField('entityDebt', formData.entityDebt)"
+                     name="entityDebt">
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">¿Tiene Créditos?</label>
+          <div class="custom-radio">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" value="Si" 
+                     [checked]="formData.hasCredits === 'Si'"
+                     (change)="updateField('hasCredits', 'Si')"
+                     name="hasCredits"> Si
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" value="No" 
+                     [checked]="formData.hasCredits === 'No'"
+                     (change)="updateField('hasCredits', 'No')"
+                     name="hasCredits"> No
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Context -->
+      <div class="form-section">
+        <h4 class="text-primary">Contexto</h4>
+        <div class="mb-3">
+          <label for="motivation" class="form-label">¿Qué te motiva a ser emprendedor?</label>
+          <textarea class="form-control" id="motivation" rows="2" 
+                    [(ngModel)]="formData.motivation"
+                    (change)="updateField('motivation', formData.motivation)"
+                    name="motivation"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="vision" class="form-label">¿Cómo visualizas tu vida como emprendedor?</label>
+          <textarea class="form-control" id="vision" rows="2" 
+                    [(ngModel)]="formData.vision"
+                    (change)="updateField('vision', formData.vision)"
+                    name="vision"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="fearsStrengths" class="form-label">¿Qué temores y fortalezas tienes sobre emprender?</label>
+          <textarea class="form-control" id="fearsStrengths" rows="2" 
+                    [(ngModel)]="formData.fearsStrengths"
+                    (change)="updateField('fearsStrengths', formData.fearsStrengths)"
+                    name="fearsStrengths"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Pertenece a un grupo poblacional diferencial:</label>
+          <input type="text" class="form-control" 
+                 [(ngModel)]="formData.differentialGroup"
+                 (change)="updateField('differentialGroup', formData.differentialGroup)"
+                 name="differentialGroup">
+        </div>
+        <div class="mb-3">
+          <label for="weeklyTime" class="form-label">¿Con cuanto tiempo semanal cuentas para dedicarle a tu emprendimiento?</label>
+          <input type="text" class="form-control" id="weeklyTime" 
+                 [(ngModel)]="formData.weeklyTime"
+                 (change)="updateField('weeklyTime', formData.weeklyTime)"
+                 name="weeklyTime">
+        </div>
+      </div>
+  
+      <div class="d-flex justify-content-between mt-4">
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Limpiar formulario</button>
+        <button type="submit" class="btn btn-primary">Guardar información</button>
+      </div>
+    </form>
+  </div>
