@@ -136,12 +136,14 @@
                      (change)="toggleCheckbox('businessType', 'Otra', $event)"> Otra
             </label>
           </div>
-          <div *ngIf="formData.businessType.includes('Otra')" class="mt-2">
-            <input type="text" class="form-control" placeholder="¿Cuál?" 
-                   [(ngModel)]="formData.otherBusinessType"
-                   (change)="updateField('otherBusinessType', formData.otherBusinessType)"
-                   name="otherBusinessType">
-          </div>
+          @if(formData.businessType.includes('Otra')){
+            <div class="mt-2">
+              <input type="text" class="form-control" placeholder="¿Cuál?" 
+                     [(ngModel)]="formData.otherBusinessType"
+                     (change)="updateField('otherBusinessType', formData.otherBusinessType)"
+                     name="otherBusinessType">
+            </div>
+          }
         </div>
       </div>
   
