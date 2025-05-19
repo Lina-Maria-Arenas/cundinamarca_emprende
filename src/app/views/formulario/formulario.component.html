@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row justify-content-center">
     <div class="row justify-content-center mt-5">
       <h1 class="mt-5 mb-3">DATOS CON APEXCHARTS</h1>
@@ -15,7 +15,7 @@
         [labels]="pieChartOptionsApex.labels" [responsive]="pieChartOptionsApex.responsive"
         [legend]="pieChartOptionsApex.legend"></apx-chart>
     </div>
-    <h1 class="mt-5 mb-3">DATOS CON CHARTS</h1>
+    <h1 class="mt-5 mb-3">DATOS CON CHARTSnp</h1>
     <div class="col-6">
       <h2>Gráfico de Línea</h2>
       <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType">
@@ -28,3 +28,110 @@
     </div>
   </div>
 </div>
+ -->
+
+ <!-- Dashboard informativo con Bootstrap y gráficos ApexCharts -->
+<div class="container mt-5">
+  <!-- TARJETA 1 -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">📊 Estado por Ciclo del Fortalecimiento Empresarial</h4>
+      <p><strong>🎯 Objetivo:</strong> Visualizar el porcentaje de avance del emprendimiento en los tres ciclos definidos del proceso de fortalecimiento empresarial.</p>
+      <p><strong>📥 Datos necesarios:</strong></p>
+      <ul>
+        <li>ID del emprendimiento</li>
+        <li>Lista de actividades por ciclo</li>
+        <li>Estado de cada actividad (pendiente, en proceso, finalizada)</li>
+        <li>Porcentaje completado por ciclo</li>
+      </ul>
+      <p><strong>🗂️ Fuentes de datos:</strong> Sistema de seguimiento a emprendimientos, formularios de evaluación, registros CRM.</p>
+      <p><strong>🔍 Observaciones:</strong> Requiere datos estructurados por ciclo para calcular los porcentajes.</p>
+      <apx-chart [series]="series()" [chart]="chart" [labels]="labels()" [plotOptions]="plotOptions" [fill]="fill" [stroke]="stroke" [responsive]="responsive" type="radialBar"></apx-chart>
+    </div>
+  </div>
+
+  <!-- TARJETA 2 -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">📊 Comparativo de Valoraciones por Pregunta</h4>
+      <p><strong>🎯 Objetivo:</strong> Comparar las valoraciones de preguntas clave en los distintos ciclos de evaluación.</p>
+      <p><strong>📥 Datos necesarios:</strong></p>
+      <ul>
+        <li>ID del emprendimiento</li>
+        <li>Lista de preguntas del diagnóstico</li>
+        <li>Valoración por ciclo (1 a 5 o porcentaje)</li>
+      </ul>
+      <p><strong>🗂️ Fuentes de datos:</strong> Resultados de formularios de diagnóstico diligenciados por el asesor.</p>
+      <p><strong>🔍 Observaciones:</strong> Útil para identificar patrones de mejora o estancamiento por eje temático.</p>
+      <apx-chart [series]="seriesA()" [chart]="chartA" [xaxis]="xaxis" [yaxis]="yaxis" [plotOptions]="plotOptionsA" [dataLabels]="dataLabels" [stroke]="strokeA" [legend]="legend" [fill]="fillA" type="bar" height="550"></apx-chart>
+    </div>
+  </div>
+
+  <!-- TARJETA 3 -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">📊 Perfil del Emprendimiento por Ciclo</h4>
+      <p><strong>🎯 Objetivo:</strong> Mostrar de forma comparativa las fortalezas y debilidades del emprendimiento según criterios evaluados en cada ciclo.</p>
+      <p><strong>📥 Datos necesarios:</strong></p>
+      <ul>
+        <li>Dimensiones evaluadas por ciclo</li>
+        <li>Puntaje por dimensión (por ejemplo, de 1 a 10)</li>
+      </ul>
+      <p><strong>🗂️ Fuentes de datos:</strong> Evaluaciones técnicas y de autodiagnóstico.</p>
+      <p><strong>🔍 Observaciones:</strong> Aporta una visión de conjunto del perfil empresarial.</p>
+      <apx-chart type="radar" [series]="radarSeries()" [chart]="radarChart" [labels]="radarCategories()" [stroke]="radarStroke" [fill]="radarFill" [legend]="radarLegend" height="450"></apx-chart>
+    </div>
+  </div>
+
+  <!-- TARJETA 4 -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">📊 Seguimiento de Avances - Ciclo 1</h4>
+      <p><strong>🎯 Objetivo:</strong> Mostrar las actividades planificadas del ciclo 1 con fechas de inicio y entrega.</p>
+      <p><strong>📥 Datos necesarios:</strong></p>
+      <ul>
+        <li>Listado de actividades</li>
+        <li>Fechas de inicio y fin</li>
+        <li>Estado actual</li>
+      </ul>
+      <p><strong>🗂️ Fuentes de datos:</strong> Cronograma del plan de fortalecimiento.</p>
+      <p><strong>🔍 Observaciones:</strong> Puede funcionar como Gantt o gráfico de columnas apiladas con fechas.</p>
+      <apx-chart #chartHTML [series]="chartOptionsD['series']" [chart]="chartOptionsD['chart']" [colors]="chartOptionsD['colors']" [plotOptions]="chartOptionsD['plotOptions']" [title]="chartOptionsD['title']" [legend]="chartOptionsD['legend']" [fill]="chartOptionsD['fill']" [grid]="chartOptionsD['grid']" [xaxis]="chartOptionsD['xaxis']" [yaxis]="chartOptionsD['yaxis']" [dataLabels]="chartOptionsD['dataLabels']" [stroke]="chartOptionsD['stroke']"></apx-chart>
+    </div>
+  </div>
+
+  <!-- TARJETA 5 -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">📊 Mapa de Evaluación de Competencias por Ciclo</h4>
+      <p><strong>🎯 Objetivo:</strong> Visualizar el desarrollo de 10 competencias clave por ciclo, a través de un mapa de calor.</p>
+      <p><strong>📥 Datos necesarios:</strong></p>
+      <ul>
+        <li>Lista de competencias</li>
+        <li>Valoración por ciclo (de 1 a 5 o porcentaje)</li>
+      </ul>
+      <p><strong>🗂️ Fuentes de datos:</strong> Evaluaciones técnicas, encuestas de habilidades blandas y duras.</p>
+      <p><strong>🔍 Observaciones:</strong> Los colores permiten identificar fácilmente fortalezas y debilidades.</p>
+      <apx-chart [series]="seriesB()" [chart]="chartB" [dataLabels]="dataLabelsB" [colors]="colors" [plotOptions]="plotOptionsB" [xaxis]="xaxisB" [tooltip]="tooltip" [fill]="fillB" [legend]="legendB" type="heatmap" height="500"></apx-chart>
+    </div>
+  </div>
+
+  <!-- TARJETA 6 -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">📊 Nivel de Avance por Ciclo</h4>
+      <p><strong>🎯 Objetivo:</strong> Mostrar el número de actividades clasificadas en niveles de avance (bajo, medio, alto) dentro de cada ciclo.</p>
+      <p><strong>📥 Datos necesarios:</strong></p>
+      <ul>
+        <li>Listado de actividades</li>
+        <li>Nivel de avance categorizado (bajo, medio, alto)</li>
+        <li>Asignación al ciclo correspondiente</li>
+      </ul>
+      <p><strong>🗂️ Fuentes de datos:</strong> Reportes de avance generados por el sistema de seguimiento o cargados manualmente.</p>
+      <p><strong>🔍 Observaciones:</strong> Permite entender la carga y desempeño de los emprendimientos por ciclo.</p>
+      <apx-chart [series]="seriesC()" [chart]="chartC" [plotOptions]="plotOptionsC" [xaxis]="xaxisC" [yaxis]="yaxisC" [fill]="fillC" [dataLabels]="dataLabelsC" [legend]="legendC" type="bar" height="400"></apx-chart>
+    </div>
+  </div>
+</div>
+
+<!-- Recuerda incluir Bootstrap y ApexCharts en tu proyecto para que todo funcione correctamente. -->
