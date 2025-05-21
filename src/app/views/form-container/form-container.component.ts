@@ -157,7 +157,7 @@ export class FormContainerComponent implements OnInit {
         // Guardar datos en el servicio
         this.formDataService.updateFormData(this.form.value);
         this.formDataService.submitFormData();
-        
+        console.log(this.form.getRawValue())
         // Resetear formulario después de 3 segundos
         setTimeout(() => {
           this.resetForm();
