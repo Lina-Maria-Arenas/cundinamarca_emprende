@@ -4,6 +4,8 @@ import { FormDataService } from '../../helpers/services/form-data-service.servic
 import { AuthService } from '../../helpers/services/auth-service.service';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { buildRedmineCustomFields } from '../../helpers/utils/redmine-utils';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-form-container',
@@ -48,7 +50,8 @@ export class FormContainerComponent implements OnInit {
     private formDataService: FormDataService,
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient
   ) {
     this.form = this.fb.group({
       // Información Básica
@@ -136,45 +139,69 @@ export class FormContainerComponent implements OnInit {
   }
 
   async submitForm(): Promise<void> {
-    this.submitted = true;
-    this.markAllAsTouched();
-    
-    if (this.form.valid) {
-      try {
-        // Simular envío al servidor
-        this.serverResponse = null;
-        this.form.disable();
-        
-        // Simular delay de red
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Simular respuesta exitosa
-        this.serverResponse = {
-          success: true,
-          message: 'Formulario enviado con éxito. Gracias por tu información.'
-        };
-        
-        // Guardar datos en el servicio
-        this.formDataService.updateFormData(this.form.value);
-        this.formDataService.submitFormData();
-        
-        // Resetear formulario después de 3 segundos
-        setTimeout(() => {
-          this.resetForm();
-          this.submitted = false;
-          this.serverResponse = null;
-        }, 3000);
-      } catch (error) {
-        this.serverResponse = {
-          success: false,
-          message: 'Error al enviar el formulario. Por favor intenta nuevamente.'
-        };
-        this.form.enable();
-      }
-    } else {
-      this.scrollToFirstInvalidControl();
-    }
+  this.submitted = true;
+  this.markAllAsTouched();
+
+  if (this.form.valid) {
+    try {
+      this.serverResponse = null;
+      this.form.disable();
+
+      // 1. Construimos el arreglo de campos personalizados para Redmine
+      const customFields = buildRedmineCustomFields(this.form);
+
+      // 2. Armamos el payload para Redmine
+      const payload = {
+  issue: {
+    project_id: 'solicitudes-pruebas', // ID o nombre del proyecto (usa el string que ves en Postman)
+    tracker_id: 10,                    // ID del tipo de seguimiento (ej: Emprendimiento)
+    subject: 'Cundinamarca Emprendemos - Solicitud de Prueba',
+    description: 'Esta es una solicitud enviada desde el formulario del frontend.',
+    custom_fields: customFields
   }
+};
+
+      // 3. Enviamos a Redmine
+     const response: any = await this.http.post('http://ec2-34-200-104-165.compute-1.amazonaws.com:53430/issues.json', payload, {
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Redmine-API-Key': 'TU_API_KEY'
+  }
+}).toPromise();
+
+// Guarda el ID de la solicitud Redmine
+const issueId = response?.issue?.id;
+console.log('Solicitud creada con ID:', issueId);
+
+      // 4. Guardamos en tu servicio local (si quieres mantener esa lógica)
+      this.formDataService.updateFormData(this.form.value);
+      this.formDataService.submitFormData();
+
+      // 5. Mostramos éxito al usuario
+      this.serverResponse = {
+        success: true,
+        message: 'Formulario enviado con éxito. Gracias por tu información.'
+      };
+
+      // 6. Resetear luego de 3 segundos
+      setTimeout(() => {
+        this.resetForm();
+        this.submitted = false;
+        this.serverResponse = null;
+      }, 3000);
+
+    } catch (error) {
+      console.error('Error al enviar a Redmine:', error);
+      this.serverResponse = {
+        success: false,
+        message: 'Error al enviar el formulario. Por favor intenta nuevamente.'
+      };
+      this.form.enable();
+    }
+  } else {
+    this.scrollToFirstInvalidControl();
+  }
+}
 
   resetForm(): void {
     if (confirm('¿Estás seguro que deseas limpiar todo el formulario?')) {

@@ -1,0 +1,28 @@
+// src/app/constants/custom-fields.map.ts
+export const redmineCustomFieldMap: { [key: string]: number } = {
+  meetingDate: 16,
+  companyName: 17,
+  naturalPerson: 18,
+  email: 19,
+  phone: 20,
+  address: 21,
+  responsible: 22,
+  gender: 23,
+  businessType: 24,
+  economicSector: 25,
+  economicActivity: 26,
+  membersCount: 27,
+  differentialMembers: 28,
+  differentialFocus: 29,
+  infrastructureType: 30,
+  area: 31,
+  hasPublicPartners: 32,  
+  workingCapital: 33,
+  entityDebt: 34,
+  hasCredits: 35,
+  motivation: 36,
+  vision: 37,
+  fearsStrengths: 38,
+  differentialGroup: 39,
+  weeklyTime: 40
+};
