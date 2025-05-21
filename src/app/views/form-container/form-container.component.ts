@@ -138,70 +138,7 @@ export class FormContainerComponent implements OnInit {
     }
   }
 
-  async submitForm(): Promise<void> {
-  this.submitted = true;
-  this.markAllAsTouched();
-
-  if (this.form.valid) {
-    try {
-      this.serverResponse = null;
-      this.form.disable();
-
-      // 1. Construimos el arreglo de campos personalizados para Redmine
-      const customFields = buildRedmineCustomFields(this.form);
-
-      // 2. Armamos el payload para Redmine
-      const payload = {
-  issue: {
-    project_id: 'solicitudes-pruebas', // ID o nombre del proyecto (usa el string que ves en Postman)
-    tracker_id: 10,                    // ID del tipo de seguimiento (ej: Emprendimiento)
-    subject: 'Cundinamarca Emprendemos - Solicitud de Prueba',
-    description: 'Esta es una solicitud enviada desde el formulario del frontend.',
-    custom_fields: customFields
-  }
-};
-
-      // 3. Enviamos a Redmine
-     const response: any = await this.http.post('http://ec2-34-200-104-165.compute-1.amazonaws.com:53430/issues.json', payload, {
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Redmine-API-Key': 'TU_API_KEY'
-  }
-}).toPromise();
-
-// Guarda el ID de la solicitud Redmine
-const issueId = response?.issue?.id;
-console.log('Solicitud creada con ID:', issueId);
-
-      // 4. Guardamos en tu servicio local (si quieres mantener esa lógica)
-      this.formDataService.updateFormData(this.form.value);
-      this.formDataService.submitFormData();
-
-      // 5. Mostramos éxito al usuario
-      this.serverResponse = {
-        success: true,
-        message: 'Formulario enviado con éxito. Gracias por tu información.'
-      };
-
-      // 6. Resetear luego de 3 segundos
-      setTimeout(() => {
-        this.resetForm();
-        this.submitted = false;
-        this.serverResponse = null;
-      }, 3000);
-
-    } catch (error) {
-      console.error('Error al enviar a Redmine:', error);
-      this.serverResponse = {
-        success: false,
-        message: 'Error al enviar el formulario. Por favor intenta nuevamente.'
-      };
-      this.form.enable();
-    }
-  } else {
-    this.scrollToFirstInvalidControl();
-  }
-}
+  async submitForm(): Promise<void> {}
 
   resetForm(): void {
     if (confirm('¿Estás seguro que deseas limpiar todo el formulario?')) {
