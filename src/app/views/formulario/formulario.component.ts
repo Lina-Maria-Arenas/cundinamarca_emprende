@@ -31,11 +31,10 @@ export type PieChartOptionsApex = {
   legend: ApexLegend; // <--- Ya no es opcional
 };
 @Component({
-  selector: 'app-formulario',
-  standalone: true,
-  imports: [NgApexchartsModule, CommonModule, NgChartsModule],
-  templateUrl: './formulario.component.html',
-  styleUrl: './formulario.component.scss'
+    selector: 'app-formulario',
+    imports: [NgApexchartsModule, CommonModule, NgChartsModule],
+    templateUrl: './formulario.component.html',
+    styleUrl: './formulario.component.scss'
 })
 export class FormularioComponent {
   

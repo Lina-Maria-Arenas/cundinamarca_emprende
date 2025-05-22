@@ -1,548 +1,516 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Cundinamarca Emprende</a>
-      <button class="btn btn-light ms-auto" (click)="logout()">Cerrar sesión</button>
-    </div>
-  </nav>
-  
-  <div class="container bg-white p-4 rounded shadow">
-    <h2 class="text-center mb-4 text-primary">Formulario de Caracterización</h2>
-    
-    <form (ngSubmit)="submitForm()">
-      <!-- Basic Information Section -->
-      <div class="form-section">
-        <h4 class="text-primary">Información Básica</h4>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="companyName" class="form-label">Nombre de la empresa:</label>
-            <input type="text" class="form-control" id="companyName" 
-                   [(ngModel)]="formData.companyName" 
-                   (change)="updateField('companyName', formData.companyName)"
-                   name="companyName">
-          </div>
-          <div class="col-md-6">
-            <label for="naturalPerson" class="form-label">Nombre de la persona natural:</label>
-            <input type="text" class="form-control" id="naturalPerson" 
-                   [(ngModel)]="formData.naturalPerson"
-                   (change)="updateField('naturalPerson', formData.naturalPerson)"
-                   name="naturalPerson">
-          </div>
-        </div>
-  
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label for="municipality" class="form-label">Municipio:</label>
-            <input type="text" class="form-control" id="municipality" 
-                   [(ngModel)]="formData.municipality"
-                   (change)="updateField('municipality', formData.municipality)"
-                   name="municipality">
-          </div>
-          <div class="col-md-4">
-            <label for="meetingDate" class="form-label">Fecha de encuentro:</label>
-            <input type="date" class="form-control" id="meetingDate" 
-                   [(ngModel)]="formData.meetingDate"
-                   (change)="updateField('meetingDate', formData.meetingDate)"
-                   name="meetingDate">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Sexo:</label>
-            <div class="custom-radio">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" value="Mujer" 
-                       [checked]="formData.gender === 'Mujer'"
-                       (change)="updateField('gender', 'Mujer')"
-                       name="gender"> Mujer
-              </label>
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" value="Hombre" 
-                       [checked]="formData.gender === 'Hombre'"
-                       (change)="updateField('gender', 'Hombre')"
-                       name="gender"> Hombre
-              </label>
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" value="Otro" 
-                       [checked]="formData.gender === 'Otro'"
-                       (change)="updateField('gender', 'Otro')"
-                       name="gender"> Otro
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Business Type Section -->
-      <div class="form-section">
-        <h4 class="text-primary">Tipo de Emprendimiento</h4>
-        <div class="mb-3">
-          <div class="custom-checkbox">
-            <label>
-              <input type="checkbox" value="Asociación" 
-                     [checked]="formData.businessType.includes('Asociación')"
-                     (change)="toggleCheckbox('businessType', 'Asociación', $event)"> Asociación
-            </label>
-            <label>
-              <input type="checkbox" value="Pre cooperativa" 
-                     [checked]="formData.businessType.includes('Pre cooperativa')"
-                     (change)="toggleCheckbox('businessType', 'Pre cooperativa', $event)"> Pre cooperativa
-            </label>
-            <label>
-              <input type="checkbox" value="Cooperativa" 
-                     [checked]="formData.businessType.includes('Cooperativa')"
-                     (change)="toggleCheckbox('businessType', 'Cooperativa', $event)"> Cooperativa
-            </label>
-            <label>
-              <input type="checkbox" value="Corporación" 
-                     [checked]="formData.businessType.includes('Corporación')"
-                     (change)="toggleCheckbox('businessType', 'Corporación', $event)"> Corporación
-            </label>
-            <label>
-              <input type="checkbox" value="Fundación" 
-                     [checked]="formData.businessType.includes('Fundación')"
-                     (change)="toggleCheckbox('businessType', 'Fundación', $event)"> Fundación
-            </label>
-            <label>
-              <input type="checkbox" value="En Comandita" 
-                     [checked]="formData.businessType.includes('En Comandita')"
-                     (change)="toggleCheckbox('businessType', 'En Comandita', $event)"> En Comandita
-            </label>
-            <label>
-              <input type="checkbox" value="S.A" 
-                     [checked]="formData.businessType.includes('S.A')"
-                     (change)="toggleCheckbox('businessType', 'S.A', $event)"> S.A
-            </label>
-            <label>
-              <input type="checkbox" value="EAT" 
-                     [checked]="formData.businessType.includes('EAT')"
-                     (change)="toggleCheckbox('businessType', 'EAT', $event)"> EAT
-            </label>
-            <label>
-              <input type="checkbox" value="S.A.S" 
-                     [checked]="formData.businessType.includes('S.A.S')"
-                     (change)="toggleCheckbox('businessType', 'S.A.S', $event)"> S.A.S
-            </label>
-            <label>
-              <input type="checkbox" value="LTDA" 
-                     [checked]="formData.businessType.includes('LTDA')"
-                     (change)="toggleCheckbox('businessType', 'LTDA', $event)"> LTDA
-            </label>
-            <label>
-              <input type="checkbox" value="Idea de negocio" 
-                     [checked]="formData.businessType.includes('Idea de negocio')"
-                     (change)="toggleCheckbox('businessType', 'Idea de negocio', $event)"> Idea de negocio
-            </label>
-            <label>
-              <input type="checkbox" value="Otra" 
-                     [checked]="formData.businessType.includes('Otra')"
-                     (change)="toggleCheckbox('businessType', 'Otra', $event)"> Otra
-            </label>
-          </div>
-          @if(formData.businessType.includes('Otra')){
-            <div class="mt-2">
-              <input type="text" class="form-control" placeholder="¿Cuál?" 
-                     [(ngModel)]="formData.otherBusinessType"
-                     (change)="updateField('otherBusinessType', formData.otherBusinessType)"
-                     name="otherBusinessType">
-            </div>
-          }
-        </div>
-      </div>
-  
-      <!-- Contact Information -->
-      <div class="form-section">
-        <h4 class="text-primary">Información de Contacto</h4>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="email" class="form-label">Correo Electrónico:</label>
-            <input type="email" class="form-control" id="email" 
-                   [(ngModel)]="formData.email"
-                   (change)="updateField('email', formData.email)"
-                   name="email">
-          </div>
-          <div class="col-md-6">
-            <label for="phone" class="form-label">Número de Contacto:</label>
-            <input type="tel" class="form-control" id="phone" 
-                   [(ngModel)]="formData.phone"
-                   (change)="updateField('phone', formData.phone)"
-                   name="phone">
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="address" class="form-label">Dirección:</label>
-          <input type="text" class="form-control" id="address" 
-                 [(ngModel)]="formData.address"
-                 (change)="updateField('address', formData.address)"
-                 name="address">
-        </div>
-        <div class="mb-3">
-          <label for="responsible" class="form-label">Responsable del fortalecimiento (Tallerista y líder del centro):</label>
-          <input type="text" class="form-control" id="responsible" 
-                 [(ngModel)]="formData.responsible"
-                 (change)="updateField('responsible', formData.responsible)"
-                 name="responsible">
-        </div>
-      </div>
-  
-      <!-- Business Activity -->
-      <div class="form-section">
-        <h4 class="text-primary">Actividad Económica</h4>
-        <div class="mb-3">
-          <label class="form-label">Actividad de la idea de negocio / Sector económico:</label>
-          <div class="custom-checkbox">
-            <label>
-              <input type="checkbox" value="Agrícola" 
-                     [checked]="formData.economicSector.includes('Agrícola')"
-                     (change)="toggleCheckbox('economicSector', 'Agrícola', $event)"> Agrícola
-            </label>
-            <label>
-              <input type="checkbox" value="Pecuario" 
-                     [checked]="formData.economicSector.includes('Pecuario')"
-                     (change)="toggleCheckbox('economicSector', 'Pecuario', $event)"> Pecuario
-            </label>
-            <label>
-              <input type="checkbox" value="Agroindustrial" 
-                     [checked]="formData.economicSector.includes('Agroindustrial')"
-                     (change)="toggleCheckbox('economicSector', 'Agroindustrial', $event)"> Agroindustrial
-            </label>
-            <label>
-              <input type="checkbox" value="Artesanal" 
-                     [checked]="formData.economicSector.includes('Artesanal')"
-                     (change)="toggleCheckbox('economicSector', 'Artesanal', $event)"> Artesanal
-            </label>
-            <label>
-              <input type="checkbox" value="Minería" 
-                     [checked]="formData.economicSector.includes('Minería')"
-                     (change)="toggleCheckbox('economicSector', 'Minería', $event)"> Minería
-            </label>
-            <label>
-              <input type="checkbox" value="Comercial" 
-                     [checked]="formData.economicSector.includes('Comercial')"
-                     (change)="toggleCheckbox('economicSector', 'Comercial', $event)"> Comercial
-            </label>
-            <label>
-              <input type="checkbox" value="Industrial" 
-                     [checked]="formData.economicSector.includes('Industrial')"
-                     (change)="toggleCheckbox('economicSector', 'Industrial', $event)"> Industrial
-            </label>
-            <label>
-              <input type="checkbox" value="Transporte" 
-                     [checked]="formData.economicSector.includes('Transporte')"
-                     (change)="toggleCheckbox('economicSector', 'Transporte', $event)"> Transporte
-            </label>
-            <label>
-              <input type="checkbox" value="Turismo" 
-                     [checked]="formData.economicSector.includes('Turismo')"
-                     (change)="toggleCheckbox('economicSector', 'Turismo', $event)"> Turismo
-            </label>
-            <label>
-              <input type="checkbox" value="Otra" 
-                     [checked]="formData.economicSector.includes('Otra')"
-                     (change)="toggleCheckbox('economicSector', 'Otra', $event)"> Otra
-            </label>
-          </div>
-          <div *ngIf="formData.economicSector.includes('Otra')" class="mt-2">
-            <input type="text" class="form-control" placeholder="¿Cuál?" 
-                   [(ngModel)]="formData.otherEconomicSector"
-                   (change)="updateField('otherEconomicSector', formData.otherEconomicSector)"
-                   name="otherEconomicSector">
-          </div>
-        </div>
-  
-        <div class="mb-3">
-          <label class="form-label">Actividad Económica de la Idea de negocio:</label>
-          <div class="custom-checkbox">
-            <label>
-              <input type="checkbox" value="Acopio" 
-                     [checked]="formData.economicActivity.includes('Acopio')"
-                     (change)="toggleCheckbox('economicActivity', 'Acopio', $event)"> Acopio
-            </label>
-            <label>
-              <input type="checkbox" value="Comercialización" 
-                     [checked]="formData.economicActivity.includes('Comercialización')"
-                     (change)="toggleCheckbox('economicActivity', 'Comercialización', $event)"> Comercialización
-            </label>
-            <label>
-              <input type="checkbox" value="Transformación" 
-                     [checked]="formData.economicActivity.includes('Transformación')"
-                     (change)="toggleCheckbox('economicActivity', 'Transformación', $event)"> Transformación
-            </label>
-            <label>
-              <input type="checkbox" value="Agroindustria" 
-                     [checked]="formData.economicActivity.includes('Agroindustria')"
-                     (change)="toggleCheckbox('economicActivity', 'Agroindustria', $event)"> Agroindustria
-            </label>
-            <label>
-              <input type="checkbox" value="Producción" 
-                     [checked]="formData.economicActivity.includes('Producción')"
-                     (change)="toggleCheckbox('economicActivity', 'Producción', $event)"> Producción
-            </label>
-            <label>
-              <input type="checkbox" value="Exportación" 
-                     [checked]="formData.economicActivity.includes('Exportación')"
-                     (change)="toggleCheckbox('economicActivity', 'Exportación', $event)"> Exportación
-            </label>
-            <label>
-              <input type="checkbox" value="Importación" 
-                     [checked]="formData.economicActivity.includes('Importación')"
-                     (change)="toggleCheckbox('economicActivity', 'Importación', $event)"> Importación
-            </label>
-            <label>
-              <input type="checkbox" value="Otra" 
-                     [checked]="formData.economicActivity.includes('Otra')"
-                     (change)="toggleCheckbox('economicActivity', 'Otra', $event)"> Otra
-            </label>
-          </div>
-          <div *ngIf="formData.economicActivity.includes('Otra')" class="mt-2">
-            <input type="text" class="form-control" placeholder="¿Cuál?" 
-                   [(ngModel)]="formData.otherEconomicActivity"
-                   (change)="updateField('otherEconomicActivity', formData.otherEconomicActivity)"
-                   name="otherEconomicActivity">
-          </div>
-        </div>
-      </div>
-  
-      <!-- Members Information -->
-      <div class="form-section">
-        <h4 class="text-primary">Información de Socios/Afiliados</h4>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="membersCount" class="form-label">Número de afiliados / socios:</label>
-            <input type="number" class="form-control" id="membersCount" 
-                   [(ngModel)]="formData.membersCount"
-                   (change)="updateField('membersCount', formData.membersCount)"
-                   name="membersCount">
-          </div>
-          <div class="col-md-6">
-            <label for="differentialMembers" class="form-label">Número de personas, afiliados / socios, con enfoque diferencial:</label>
-            <input type="number" class="form-control" id="differentialMembers" 
-                   [(ngModel)]="formData.differentialMembers"
-                   (change)="updateField('differentialMembers', formData.differentialMembers)"
-                   name="differentialMembers">
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Enfoque diferencial:</label>
-          <div class="custom-checkbox">
-            <label>
-              <input type="checkbox" value="Indígena" 
-                     [checked]="formData.differentialFocus.includes('Indígena')"
-                     (change)="toggleCheckbox('differentialFocus', 'Indígena', $event)"> Indígena
-            </label>
-            <label>
-              <input type="checkbox" value="Afro" 
-                     [checked]="formData.differentialFocus.includes('Afro')"
-                     (change)="toggleCheckbox('differentialFocus', 'Afro', $event)"> Afro
-            </label>
-            <label>
-              <input type="checkbox" value="Raizal" 
-                     [checked]="formData.differentialFocus.includes('Raizal')"
-                     (change)="toggleCheckbox('differentialFocus', 'Raizal', $event)"> Raizal
-            </label>
-            <label>
-              <input type="checkbox" value="Víctima del conflicto" 
-                     [checked]="formData.differentialFocus.includes('Víctima del conflicto')"
-                     (change)="toggleCheckbox('differentialFocus', 'Víctima del conflicto', $event)"> Víctima del conflicto
-            </label>
-            <label>
-              <input type="checkbox" value="LGBTIQ+" 
-                     [checked]="formData.differentialFocus.includes('LGBTIQ+')"
-                     (change)="toggleCheckbox('differentialFocus', 'LGBTIQ+', $event)"> LGBTIQ+
-            </label>
-            <label>
-              <input type="checkbox" value="Joven" 
-                     [checked]="formData.differentialFocus.includes('Joven')"
-                     (change)="toggleCheckbox('differentialFocus', 'Joven', $event)"> Joven
-            </label>
-            <label>
-              <input type="checkbox" value="Personas con discapacidad" 
-                     [checked]="formData.differentialFocus.includes('Personas con discapacidad')"
-                     (change)="toggleCheckbox('differentialFocus', 'Personas con discapacidad', $event)"> Personas con discapacidad
-            </label>
-            <label>
-              <input type="checkbox" value="Otra" 
-                     [checked]="formData.differentialFocus.includes('Otra')"
-                     (change)="toggleCheckbox('differentialFocus', 'Otra', $event)"> Otra
-            </label>
-          </div>
-          <div *ngIf="formData.differentialFocus.includes('Otra')" class="mt-2">
-            <input type="text" class="form-control" placeholder="¿Cuál?" 
-                   [(ngModel)]="formData.otherDifferentialFocus"
-                   (change)="updateField('otherDifferentialFocus', formData.otherDifferentialFocus)"
-                   name="otherDifferentialFocus">
-          </div>
-        </div>
-      </div>
-  
-      <!-- Infrastructure -->
-      <div class="form-section">
-        <h4 class="text-primary">Infraestructura e Instalaciones</h4>
-        <div class="mb-3">
-          <label class="form-label">Tipo de infraestructura e instalaciones:</label>
-          <div class="custom-checkbox">
-            <label>
-              <input type="checkbox" value="Propia" 
-                     [checked]="formData.infrastructureType.includes('Propia')"
-                     (change)="toggleCheckbox('infrastructureType', 'Propia', $event)"> Propia
-            </label>
-            <label>
-              <input type="checkbox" value="Arrendada" 
-                     [checked]="formData.infrastructureType.includes('Arrendada')"
-                     (change)="toggleCheckbox('infrastructureType', 'Arrendada', $event)"> Arrendada
-            </label>
-            <label>
-              <input type="checkbox" value="Familiar" 
-                     [checked]="formData.infrastructureType.includes('Familiar')"
-                     (change)="toggleCheckbox('infrastructureType', 'Familiar', $event)"> Familiar
-            </label>
-            <label>
-              <input type="checkbox" value="Comodato" 
-                     [checked]="formData.infrastructureType.includes('Comodato')"
-                     (change)="toggleCheckbox('infrastructureType', 'Comodato', $event)"> Comodato
-            </label>
-          </div>
-          <div class="mt-2">
-            <label for="area" class="form-label">Área (m²):</label>
-            <input type="number" class="form-control" id="area" 
-                   [(ngModel)]="formData.area"
-                   (change)="updateField('area', formData.area)"
-                   name="area">
-          </div>
-        </div>
-  
-        <div class="mb-3">
-          <label class="form-label">Aliados comerciales:</label>
-          <div class="mb-2">
-            <label class="form-label">Públicos:</label>
-            <div class="custom-checkbox">
-              <label>
-                <input type="checkbox" 
-                       [checked]="formData.hasPublicPartners"
-                       (change)="updateField('hasPublicPartners', $event)"> ¿Cuáles?
-              </label>
-            </div>
-            <input *ngIf="formData.hasPublicPartners" type="text" class="form-control mt-1" 
-                   placeholder="Ej: Venta Directa"
-                   [(ngModel)]="formData.publicPartners"
-                   (change)="updateField('publicPartners', formData.publicPartners)"
-                   name="publicPartners">
-          </div>
-          <div class="mb-2">
-            <label class="form-label">Privados:</label>
-            <div class="custom-checkbox">
-              <label>
-                <input type="checkbox" 
-                       [checked]="formData.hasPrivatePartners"
-                       (change)="updateField('hasPrivatePartners', $event)"> ¿Cuáles?
-              </label>
-            </div>
-            <input *ngIf="formData.hasPrivatePartners" type="text" class="form-control mt-1" 
-                   [(ngModel)]="formData.privatePartners"
-                   (change)="updateField('privatePartners', formData.privatePartners)"
-                   name="privatePartners">
-          </div>
-          <div>
-            <label class="form-label">Mixto:</label>
-            <div class="custom-checkbox">
-              <label>
-                <input type="checkbox" 
-                       [checked]="formData.hasMixedPartners"
-                       (change)="updateField('hasMixedPartners', $event)"> ¿Cuáles?
-              </label>
-            </div>
-            <input *ngIf="formData.hasMixedPartners" type="text" class="form-control mt-1" 
-                   [(ngModel)]="formData.mixedPartners"
-                   (change)="updateField('mixedPartners', formData.mixedPartners)"
-                   name="mixedPartners">
-          </div>
-        </div>
-      </div>
-  
-      <!-- Financial Information -->
-      <div class="form-section">
-        <h4 class="text-primary">Información Financiera</h4>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="workingCapital" class="form-label">¿Cuál es el Capital de Trabajo? (en pesos):</label>
-            <div class="input-group">
-              <span class="input-group-text">$</span>
-              <input type="number" class="form-control" id="workingCapital" 
-                     [(ngModel)]="formData.workingCapital"
-                     (change)="updateField('workingCapital', formData.workingCapital)"
-                     name="workingCapital">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label for="entityDebt" class="form-label">¿Cuál es el Pasivo de la entidad (Deuda en Pesos)?:</label>
-            <div class="input-group">
-              <span class="input-group-text">$</span>
-              <input type="number" class="form-control" id="entityDebt" 
-                     [(ngModel)]="formData.entityDebt"
-                     (change)="updateField('entityDebt', formData.entityDebt)"
-                     name="entityDebt">
-            </div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">¿Tiene Créditos?</label>
-          <div class="custom-radio">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" value="Si" 
-                     [checked]="formData.hasCredits === 'Si'"
-                     (change)="updateField('hasCredits', 'Si')"
-                     name="hasCredits"> Si
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" value="No" 
-                     [checked]="formData.hasCredits === 'No'"
-                     (change)="updateField('hasCredits', 'No')"
-                     name="hasCredits"> No
-            </label>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Context -->
-      <div class="form-section">
-        <h4 class="text-primary">Contexto</h4>
-        <div class="mb-3">
-          <label for="motivation" class="form-label">¿Qué te motiva a ser emprendedor?</label>
-          <textarea class="form-control" id="motivation" rows="2" 
-                    [(ngModel)]="formData.motivation"
-                    (change)="updateField('motivation', formData.motivation)"
-                    name="motivation"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="vision" class="form-label">¿Cómo visualizas tu vida como emprendedor?</label>
-          <textarea class="form-control" id="vision" rows="2" 
-                    [(ngModel)]="formData.vision"
-                    (change)="updateField('vision', formData.vision)"
-                    name="vision"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="fearsStrengths" class="form-label">¿Qué temores y fortalezas tienes sobre emprender?</label>
-          <textarea class="form-control" id="fearsStrengths" rows="2" 
-                    [(ngModel)]="formData.fearsStrengths"
-                    (change)="updateField('fearsStrengths', formData.fearsStrengths)"
-                    name="fearsStrengths"></textarea>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Pertenece a un grupo poblacional diferencial:</label>
-          <input type="text" class="form-control" 
-                 [(ngModel)]="formData.differentialGroup"
-                 (change)="updateField('differentialGroup', formData.differentialGroup)"
-                 name="differentialGroup">
-        </div>
-        <div class="mb-3">
-          <label for="weeklyTime" class="form-label">¿Con cuanto tiempo semanal cuentas para dedicarle a tu emprendimiento?</label>
-          <input type="text" class="form-control" id="weeklyTime" 
-                 [(ngModel)]="formData.weeklyTime"
-                 (change)="updateField('weeklyTime', formData.weeklyTime)"
-                 name="weeklyTime">
-        </div>
-      </div>
-  
-      <div class="d-flex justify-content-between mt-4">
-        <button type="button" class="btn btn-secondary" (click)="resetForm()">Limpiar formulario</button>
-        <button type="submit" class="btn btn-primary">Guardar información</button>
-      </div>
-    </form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">Cundinamarca Emprende</a>
+    <button class="btn btn-light ms-auto" (click)="logout()">
+      <i class="bi bi-box-arrow-right me-1"></i>Cerrar sesión
+    </button>
   </div>
+</nav>
+
+<div class="container bg-white p-4 rounded shadow">
+  <!-- Mensaje de respuesta del servidor -->
+  <div *ngIf="serverResponse" class="alert alert-dismissible fade show" 
+       [ngClass]="serverResponse.success ? 'alert-success' : 'alert-danger'">
+    {{serverResponse.message}}
+    <button type="button" class="btn-close" (click)="serverResponse = null"></button>
+  </div>
+
+  <h2 class="text-center mb-4 text-primary fw-bold">
+    <i class="bi bi-file-earmark-text me-2"></i>Formulario de Caracterización
+  </h2>
+  
+  <form [formGroup]="form" (ngSubmit)="submitForm()" class="needs-validation" novalidate>
+    <!-- Progress Steps -->
+    <div class="mb-5">
+      <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': true}" href="#basic-info">
+            <i class="bi bi-person-vcard me-1"></i> Información Básica
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact-info">
+            <i class="bi bi-telephone me-1"></i> Contacto
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#business-info">
+            <i class="bi bi-building me-1"></i> Negocio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#financial-info">
+            <i class="bi bi-cash-coin me-1"></i> Financiero
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Basic Information Section -->
+    <div class="form-section mb-5" id="basic-info">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-info-circle me-2"></i>Información Básica
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+              <label for="companyName" class="form-label">Nombre de la empresa:</label>
+              <input type="text" class="form-control" id="companyName" 
+                     formControlName="companyName"
+                     [ngClass]="{'is-invalid': submitted && f['companyName'].errors}">
+              <div *ngIf="submitted && f['companyName'].errors" class="invalid-feedback">
+                {{ getFieldError('companyName') }}
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="naturalPerson" class="form-label">Nombre de la persona natural:</label>
+              <input type="text" class="form-control" id="naturalPerson" 
+                     formControlName="naturalPerson"
+                     [ngClass]="{'is-invalid': submitted && f['naturalPerson'].errors}">
+              <div *ngIf="submitted && f['naturalPerson'].errors" class="invalid-feedback">
+                {{ getFieldError('naturalPerson') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+              <label for="municipality" class="form-label">Municipio:</label>
+              <input type="text" class="form-control" id="municipality" 
+                     formControlName="municipality"
+                     [ngClass]="{'is-invalid': submitted && f['municipality'].errors}">
+              <div *ngIf="submitted && f['municipality'].errors" class="invalid-feedback">
+                {{ getFieldError('municipality') }}
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="meetingDate" class="form-label">Fecha de encuentro:</label>
+              <input type="date" class="form-control" id="meetingDate" 
+                     formControlName="meetingDate"
+                     [ngClass]="{'is-invalid': submitted && f['meetingDate'].errors}">
+              <div *ngIf="submitted && f['meetingDate'].errors" class="invalid-feedback">
+                {{ getFieldError('meetingDate') }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="form-section mb-5" id="contact-info">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-person-lines-fill me-2"></i>Información de Contacto
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">Correo Electrónico:</label>
+              <input type="email" class="form-control" id="email" 
+                     formControlName="email"
+                     [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                {{ getFieldError('email') }}
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="phone" class="form-label">Número de Contacto:</label>
+              <input type="tel" class="form-control" id="phone" 
+                     formControlName="phone"
+                     [ngClass]="{'is-invalid': submitted && f['phone'].errors}">
+              <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+                {{ getFieldError('phone') }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="address" class="form-label">Dirección:</label>
+            <input type="text" class="form-control" id="address" 
+                   formControlName="address"
+                   [ngClass]="{'is-invalid': submitted && f['address'].errors}">
+            <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+              {{ getFieldError('address') }}
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="responsible" class="form-label">Responsable del fortalecimiento:</label>
+            <input type="text" class="form-control" id="responsible" 
+                   formControlName="responsible"
+                   [ngClass]="{'is-invalid': submitted && f['responsible'].errors}">
+            <div *ngIf="submitted && f['responsible'].errors" class="invalid-feedback">
+              {{ getFieldError('responsible') }}
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Sexo:</label>
+            <div class="btn-group" role="group">
+              <input type="radio" class="btn-check" id="genderMujer" value="Mujer" 
+                     formControlName="gender">
+              <label class="btn btn-outline-primary" for="genderMujer">Mujer</label>
+              
+              <input type="radio" class="btn-check" id="genderHombre" value="Hombre" 
+                     formControlName="gender">
+              <label class="btn btn-outline-primary" for="genderHombre">Hombre</label>
+              
+              <input type="radio" class="btn-check" id="genderOtro" value="Otro" 
+                     formControlName="gender">
+              <label class="btn btn-outline-primary" for="genderOtro">Otro</label>
+            </div>
+            <div *ngIf="submitted && f['gender'].errors" class="text-danger small">
+              {{ getFieldError('gender') }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Type Section -->
+    <div class="form-section mb-5" id="business-info">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-briefcase me-2"></i>Tipo de Emprendimiento
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label">Seleccione el tipo:</label>
+            <div class="row">
+              <div class="col-md-4 mb-2" *ngFor="let option of businessTypeOptions">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [value]="option" 
+                         (change)="onCheckboxChange($event, 'businessType', option)"
+                         [checked]="businessTypeArray.value.includes(option)"
+                         id="bt-{{option}}">
+                  <label class="form-check-label" for="bt-{{option}}">
+                    {{option}}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="submitted && businessTypeArray.errors" class="text-danger small">
+              {{ getArrayError('businessType') }}
+            </div>
+            <div *ngIf="businessTypeArray.value.includes('Otra')" class="mt-3">
+              <input type="text" class="form-control" placeholder="¿Cuál?" 
+                     formControlName="otherBusinessType">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Activity -->
+    <div class="form-section mb-5">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-graph-up me-2"></i>Actividad Económica
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
+            <label class="form-label">Sector económico:</label>
+            <div class="row">
+              <div class="col-md-4 mb-2" *ngFor="let option of economicSectorOptions">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [value]="option" 
+                         (change)="onCheckboxChange($event, 'economicSector', option)"
+                         [checked]="economicSectorArray.value.includes(option)"
+                         id="es-{{option}}">
+                  <label class="form-check-label" for="es-{{option}}">
+                    {{option}}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="submitted && economicSectorArray.errors" class="text-danger small">
+              {{ getArrayError('economicSector') }}
+            </div>
+            <div *ngIf="economicSectorArray.value.includes('Otra')" class="mt-3">
+              <input type="text" class="form-control" placeholder="¿Cuál?" 
+                     formControlName="otherEconomicSector">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Actividad Económica:</label>
+            <div class="row">
+              <div class="col-md-4 mb-2" *ngFor="let option of economicActivityOptions">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [value]="option" 
+                         (change)="onCheckboxChange($event, 'economicActivity', option)"
+                         [checked]="economicActivityArray.value.includes(option)"
+                         id="ea-{{option}}">
+                  <label class="form-check-label" for="ea-{{option}}">
+                    {{option}}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="submitted && economicActivityArray.errors" class="text-danger small">
+              {{ getArrayError('economicActivity') }}
+            </div>
+            <div *ngIf="economicActivityArray.value.includes('Otra')" class="mt-3">
+              <input type="text" class="form-control" placeholder="¿Cuál?" 
+                     formControlName="otherEconomicActivity">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Members Information -->
+    <div class="form-section mb-5">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-people-fill me-2"></i>Información de Socios/Afiliados
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+              <label for="membersCount" class="form-label">Número de afiliados / socios:</label>
+              <input type="number" class="form-control" id="membersCount" 
+                     formControlName="membersCount"
+                     [ngClass]="{'is-invalid': submitted && f['membersCount'].errors}">
+              <div *ngIf="submitted && f['membersCount'].errors" class="invalid-feedback">
+                {{ getFieldError('membersCount') }}
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="differentialMembers" class="form-label">Socios con enfoque diferencial:</label>
+              <input type="number" class="form-control" id="differentialMembers" 
+                     formControlName="differentialMembers"
+                     [ngClass]="{'is-invalid': submitted && f['differentialMembers'].errors}">
+              <div *ngIf="submitted && f['differentialMembers'].errors" class="invalid-feedback">
+                {{ getFieldError('differentialMembers') }}
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Enfoque diferencial:</label>
+            <div class="row">
+              <div class="col-md-4 mb-2" *ngFor="let option of differentialFocusOptions">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [value]="option" 
+                         (change)="onCheckboxChange($event, 'differentialFocus', option)"
+                         [checked]="differentialFocusArray.value.includes(option)"
+                         id="df-{{option}}">
+                  <label class="form-check-label" for="df-{{option}}">
+                    {{option}}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="differentialFocusArray.value.includes('Otra')" class="mt-3">
+              <input type="text" class="form-control" placeholder="¿Cuál?" 
+                     formControlName="otherDifferentialFocus">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infrastructure -->
+    <div class="form-section mb-5">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-house-gear me-2"></i>Infraestructura e Instalaciones
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
+            <label class="form-label">Tipo de infraestructura:</label>
+            <div class="row">
+              <div class="col-md-3 mb-2" *ngFor="let option of infrastructureTypeOptions">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [value]="option" 
+                         (change)="onCheckboxChange($event, 'infrastructureType', option)"
+                         [checked]="infrastructureTypeArray.value.includes(option)"
+                         id="it-{{option}}">
+                  <label class="form-check-label" for="it-{{option}}">
+                    {{option}}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="submitted && infrastructureTypeArray.errors" class="text-danger small">
+              {{ getArrayError('infrastructureType') }}
+            </div>
+            <div class="mt-3 col-md-4">
+              <label for="area" class="form-label">Área (m²):</label>
+              <input type="number" class="form-control" id="area" 
+                     formControlName="area"
+                     [ngClass]="{'is-invalid': submitted && f['area'].errors}">
+              <div *ngIf="submitted && f['area'].errors" class="invalid-feedback">
+                {{ getFieldError('area') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Aliados comerciales:</label>
+            <div class="mb-3">
+              <div class="form-check form-switch mb-2">
+                <input class="form-check-input" type="checkbox" id="hasPublicPartners" 
+                       formControlName="hasPublicPartners">
+                <label class="form-check-label" for="hasPublicPartners">Públicos</label>
+              </div>
+              <input *ngIf="f['hasPublicPartners'].value" type="text" class="form-control" 
+                     placeholder="Ej: Venta Directa"
+                     formControlName="publicPartners">
+            </div>
+            <div class="mb-3">
+              <div class="form-check form-switch mb-2">
+                <input class="form-check-input" type="checkbox" id="hasPrivatePartners" 
+                       formControlName="hasPrivatePartners">
+                <label class="form-check-label" for="hasPrivatePartners">Privados</label>
+              </div>
+              <input *ngIf="f['hasPrivatePartners'].value" type="text" class="form-control" 
+                     formControlName="privatePartners">
+            </div>
+            <div>
+              <div class="form-check form-switch mb-2">
+                <input class="form-check-input" type="checkbox" id="hasMixedPartners" 
+                       formControlName="hasMixedPartners">
+                <label class="form-check-label" for="hasMixedPartners">Mixto</label>
+              </div>
+              <input *ngIf="f['hasMixedPartners'].value" type="text" class="form-control" 
+                     formControlName="mixedPartners">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Information -->
+    <div class="form-section mb-5" id="financial-info">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-cash-stack me-2"></i>Información Financiera
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+              <label for="workingCapital" class="form-label">Capital de Trabajo:</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="workingCapital" 
+                       formControlName="workingCapital"
+                       [ngClass]="{'is-invalid': submitted && f['workingCapital'].errors}">
+              </div>
+              <div *ngIf="submitted && f['workingCapital'].errors" class="invalid-feedback">
+                {{ getFieldError('workingCapital') }}
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="entityDebt" class="form-label">Pasivo de la entidad:</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="entityDebt" 
+                       formControlName="entityDebt"
+                       [ngClass]="{'is-invalid': submitted && f['entityDebt'].errors}">
+              </div>
+              <div *ngIf="submitted && f['entityDebt'].errors" class="invalid-feedback">
+                {{ getFieldError('entityDebt') }}
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">¿Tiene Créditos?</label>
+            <div class="btn-group" role="group">
+              <input type="radio" class="btn-check" id="hasCreditsSi" value="Si" 
+                     formControlName="hasCredits">
+              <label class="btn btn-outline-primary" for="hasCreditsSi">Si</label>
+              
+              <input type="radio" class="btn-check" id="hasCreditsNo" value="No" 
+                     formControlName="hasCredits">
+              <label class="btn btn-outline-primary" for="hasCreditsNo">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context -->
+    <div class="form-section mb-5">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-chat-square-text me-2"></i>Contexto
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="motivation" class="form-label">¿Qué te motiva a ser emprendedor?</label>
+            <textarea class="form-control" id="motivation" rows="3" 
+                      formControlName="motivation"
+                      [ngClass]="{'is-invalid': submitted && f['motivation'].errors}"></textarea>
+            <div *ngIf="submitted && f['motivation'].errors" class="invalid-feedback">
+              {{ getFieldError('motivation') }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="vision" class="form-label">¿Cómo visualizas tu vida como emprendedor?</label>
+            <textarea class="form-control" id="vision" rows="3" 
+                      formControlName="vision"
+                      [ngClass]="{'is-invalid': submitted && f['vision'].errors}"></textarea>
+            <div *ngIf="submitted && f['vision'].errors" class="invalid-feedback">
+              {{ getFieldError('vision') }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="fearsStrengths" class="form-label">¿Qué temores y fortalezas tienes sobre emprender?</label>
+            <textarea class="form-control" id="fearsStrengths" rows="3" 
+                      formControlName="fearsStrengths"
+                      [ngClass]="{'is-invalid': submitted && f['fearsStrengths'].errors}"></textarea>
+            <div *ngIf="submitted && f['fearsStrengths'].errors" class="invalid-feedback">
+              {{ getFieldError('fearsStrengths') }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Pertenece a un grupo poblacional diferencial:</label>
+            <input type="text" class="form-control" 
+                   formControlName="differentialGroup"
+                   [ngClass]="{'is-invalid': submitted && f['differentialGroup'].errors}">
+            <div *ngIf="submitted && f['differentialGroup'].errors" class="invalid-feedback">
+              {{ getFieldError('differentialGroup') }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="weeklyTime" class="form-label">Tiempo semanal para el emprendimiento:</label>
+            <input type="text" class="form-control" id="weeklyTime" 
+                   formControlName="weeklyTime"
+                   [ngClass]="{'is-invalid': submitted && f['weeklyTime'].errors}">
+            <div *ngIf="submitted && f['weeklyTime'].errors" class="invalid-feedback">
+              {{ getFieldError('weeklyTime') }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+      <button type="button" class="btn btn-outline-danger" (click)="resetForm()">
+        <i class="bi bi-trash me-1"></i>Limpiar formulario
+      </button>
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-save me-1"></i>Guardar información
+      </button>
+    </div>
+  </form>
+</div>
