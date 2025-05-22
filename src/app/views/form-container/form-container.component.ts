@@ -155,14 +155,15 @@ export class FormContainerComponent implements OnInit {
   issue: {
     project_id: 'solicitudes-pruebas', // ID o nombre del proyecto (usa el string que ves en Postman)
     tracker_id: 10,                    // ID del tipo de seguimiento (ej: Emprendimiento)
-    subject: 'Cundinamarca Emprendemos - Solicitud de Prueba',
+    subject: 'Cundinamarca Emprendemos - Solicitud de Prueba 2',
     description: 'Esta es una solicitud enviada desde el formulario del frontend.',
     custom_fields: customFields
   }
 };
 
       // 3. Enviamos a Redmine
-     const response: any = await this.http.post('http://ec2-34-200-104-165.compute-1.amazonaws.com:53430/issues.json', payload, {
+      console.log('Payload a enviar:', JSON.stringify(payload, null, 2));
+     const response: any = await this.http.post('/api/issues.json', payload, {
   headers: {
     'Content-Type': 'application/json',
     'X-Redmine-API-Key': '6ed8d5aab006fca6fc8526757f6f4927d87cca99'
