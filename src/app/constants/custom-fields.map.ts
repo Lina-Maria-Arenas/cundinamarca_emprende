@@ -1,5 +1,6 @@
 // src/app/constants/custom-fields.map.ts
 export const redmineCustomFieldMap: { [key: string]: number } = {
+  municipio: 15,
   meetingDate: 16,
   companyName: 17,
   naturalPerson: 18,

@@ -127,7 +127,6 @@ export class FormContainerComponent implements OnInit {
   onCheckboxChange(event: Event, controlName: string, value: string): void {
     const formArray = this.form.get(controlName) as FormArray;
     const target = event.target as HTMLInputElement;
-
     if (target.checked) {
       formArray.push(new FormControl(value));
     } else {
@@ -137,6 +136,7 @@ export class FormContainerComponent implements OnInit {
       }
     }
   }
+
   async submitForm(): Promise<void> {
     this.submitted = true;
     this.markAllAsTouched();
@@ -154,54 +154,28 @@ export class FormContainerComponent implements OnInit {
           issue: {
             project_id: 'solicitudes-pruebas', // ID o nombre del proyecto (usa el string que ves en Postman)
             tracker_id: 10,                    // ID del tipo de seguimiento (ej: Emprendimiento)
-            subject: 'Cundinamarca Emprendemos - Solicitud de Prueba',
+            subject: 'Cundinamarca Emprendemos - Solicitud de Prueba 2',
             description: 'Esta es una solicitud enviada desde el formulario del frontend.',
             custom_fields: customFields
           }
         };
 
         // 3. Enviamos a Redmine
-        const response: any = await this.http.post('http://ec2-34-200-104-165.compute-1.amazonaws.com:53430/issues.json', payload, {
+        console.log('Payload a enviar:', JSON.stringify(payload, null, 2));
+        const response: any = await this.http.post('/api/issues.json', payload, {
           headers: {
             'Content-Type': 'application/json',
-            'X-Redmine-API-Key': 'TU_API_KEY'
+            'X-Redmine-API-Key': '6ed8d5aab006fca6fc8526757f6f4927d87cca99'
           }
-        }).toPromise();
-
-        // Guarda el ID de la solicitud Redmine
-        const issueId = response?.issue?.id;
-        console.log('Solicitud creada con ID:', issueId);
-
-        // 4. Guardamos en tu servicio local (si quieres mantener esa lógica)
-        this.formDataService.updateFormData(this.form.value);
-        this.formDataService.submitFormData();
-        debugger
-        const prueba = buildRedmineCustomFields(this.form.getRawValue());
-        console.log(prueba)
-
-        // 5. Mostramos éxito al usuario
-        this.serverResponse = {
-          success: true,
-          message: 'Formulario enviado con éxito. Gracias por tu información.'
-        };
-
-        // 6. Resetear luego de 3 segundos
-        setTimeout(() => {
-          this.resetForm();
-          this.submitted = false;
-          this.serverResponse = null;
-        }, 3000);
-
-      } catch (error) {
-        console.error('Error al enviar a Redmine:', error);
+        })
+      }catch (error) {
+          console.error('Error al enviar a Redmine:', error);
         this.serverResponse = {
           success: false,
           message: 'Error al enviar el formulario. Por favor intenta nuevamente.'
         };
         this.form.enable();
       }
-    } else {
-      this.scrollToFirstInvalidControl();
     }
   }
   async submitForm2(): Promise<void> {
