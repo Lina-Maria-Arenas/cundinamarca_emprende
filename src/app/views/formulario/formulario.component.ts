@@ -1,6 +1,5 @@
 import { Component, ViewChild, signal } from "@angular/core";
-import { BaseChartDirective } from 'ng2-charts';
-import { NgChartsModule } from 'ng2-charts';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import { ChartData, ChartOptions } from 'chart.js';
 import {
   ApexAxisChartSeries,
@@ -9,12 +8,12 @@ import {
   ApexDataLabels,
   ApexStroke,
   ApexLegend,
-  NgApexchartsModule,
   ApexNonAxisChartSeries, ApexPlotOptions, ApexFill,  ApexResponsive, ApexTitleSubtitle, ApexYAxis,  ChartComponent,
-  ApexGrid,ApexTooltip
+  ApexGrid,ApexTooltip,
+  NgApexchartsModule
 } from "ng-apexcharts";
-
 import { CommonModule } from "@angular/common";
+
 export type ChartOptionsApex = {
   series: ApexAxisChartSeries;
   chart: ApexChart;

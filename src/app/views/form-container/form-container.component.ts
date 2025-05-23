@@ -17,18 +17,18 @@ import { HttpClient } from '@angular/common/http';
 export class FormContainerComponent implements OnInit {
   form: FormGroup;
   submitted = false;
-  serverResponse: {success: boolean, message: string} | null = null;
+  serverResponse: { success: boolean, message: string } | null = null;
 
   // Opciones para los campos de selección múltiple
   businessTypeOptions = [
-    'Asociación', 'Pre cooperativa', 'Cooperativa', 'Corporación', 
-    'Fundación', 'En Comandita', 'S.A', 'EAT', 'S.A.S', 'LTDA', 
+    'Asociación', 'Pre cooperativa', 'Cooperativa', 'Corporación',
+    'Fundación', 'En Comandita', 'S.A', 'EAT', 'S.A.S', 'LTDA',
     'Idea de negocio', 'Otra'
   ];
 
   economicSectorOptions = [
-    'Agrícola', 'Pecuario', 'Agroindustrial', 'Artesanal', 
-    'Minería', 'Comercial', 'Industrial', 'Transporte', 
+    'Agrícola', 'Pecuario', 'Agroindustrial', 'Artesanal',
+    'Minería', 'Comercial', 'Industrial', 'Transporte',
     'Turismo', 'Otra'
   ];
 
@@ -127,7 +127,6 @@ export class FormContainerComponent implements OnInit {
   onCheckboxChange(event: Event, controlName: string, value: string): void {
     const formArray = this.form.get(controlName) as FormArray;
     const target = event.target as HTMLInputElement;
-    
     if (target.checked) {
       formArray.push(new FormControl(value));
     } else {
@@ -139,70 +138,88 @@ export class FormContainerComponent implements OnInit {
   }
 
   async submitForm(): Promise<void> {
-  this.submitted = true;
-  this.markAllAsTouched();
+    this.submitted = true;
+    this.markAllAsTouched();
 
-  if (this.form.valid) {
-    try {
-      this.serverResponse = null;
-      this.form.disable();
-
-      // 1. Construimos el arreglo de campos personalizados para Redmine
-      const customFields = buildRedmineCustomFields(this.form);
-
-      // 2. Armamos el payload para Redmine
-      const payload = {
-  issue: {
-    project_id: 'solicitudes-pruebas', // ID o nombre del proyecto (usa el string que ves en Postman)
-    tracker_id: 10,                    // ID del tipo de seguimiento (ej: Emprendimiento)
-    subject: 'Cundinamarca Emprendemos - Solicitud de Prueba 2',
-    description: 'Esta es una solicitud enviada desde el formulario del frontend.',
-    custom_fields: customFields
-  }
-};
-
-      // 3. Enviamos a Redmine
-      console.log('Payload a enviar:', JSON.stringify(payload, null, 2));
-     const response: any = await this.http.post('/api/issues.json', payload, {
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Redmine-API-Key': '6ed8d5aab006fca6fc8526757f6f4927d87cca99'
-  }
-}).toPromise();
-
-// Guarda el ID de la solicitud Redmine
-const issueId = response?.issue?.id;
-console.log('Solicitud creada con ID:', issueId);
-
-      // 4. Guardamos en tu servicio local (si quieres mantener esa lógica)
-      this.formDataService.updateFormData(this.form.value);
-      this.formDataService.submitFormData();
-
-      // 5. Mostramos éxito al usuario
-      this.serverResponse = {
-        success: true,
-        message: 'Formulario enviado con éxito. Gracias por tu información.'
-      };
-
-      // 6. Resetear luego de 3 segundos
-      setTimeout(() => {
-        this.resetForm();
-        this.submitted = false;
+    if (this.form.valid) {
+      try {
         this.serverResponse = null;
-      }, 3000);
+        this.form.disable();
 
-    } catch (error) {
-      console.error('Error al enviar a Redmine:', error);
-      this.serverResponse = {
-        success: false,
-        message: 'Error al enviar el formulario. Por favor intenta nuevamente.'
-      };
-      this.form.enable();
+        // 1. Construimos el arreglo de campos personalizados para Redmine
+        const customFields = buildRedmineCustomFields(this.form);
+
+        // 2. Armamos el payload para Redmine
+        const payload = {
+          issue: {
+            project_id: 'solicitudes-pruebas', // ID o nombre del proyecto (usa el string que ves en Postman)
+            tracker_id: 10,                    // ID del tipo de seguimiento (ej: Emprendimiento)
+            subject: 'Cundinamarca Emprendemos - Solicitud de Prueba 2',
+            description: 'Esta es una solicitud enviada desde el formulario del frontend.',
+            custom_fields: customFields
+          }
+        };
+
+        // 3. Enviamos a Redmine
+        console.log('Payload a enviar:', JSON.stringify(payload, null, 2));
+        const response: any = await this.http.post('/api/issues.json', payload, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Redmine-API-Key': '6ed8d5aab006fca6fc8526757f6f4927d87cca99'
+          }
+        })
+      }catch (error) {
+          console.error('Error al enviar a Redmine:', error);
+        this.serverResponse = {
+          success: false,
+          message: 'Error al enviar el formulario. Por favor intenta nuevamente.'
+        };
+        this.form.enable();
+      }
     }
-  } else {
-    this.scrollToFirstInvalidControl();
   }
-}
+  async submitForm2(): Promise<void> {
+    this.submitted = true;
+    this.markAllAsTouched();
+
+    if (this.form.valid) {
+      try {
+        // Simular envío al servidor
+        this.serverResponse = null;
+        this.form.disable();
+
+        // Simular delay de red
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // Simular respuesta exitosa
+        this.serverResponse = {
+          success: true,
+          message: 'Formulario enviado con éxito. Gracias por tu información.'
+        };
+
+        // Guardar datos en el servicio
+        this.formDataService.updateFormData(this.form.value);
+        this.formDataService.submitFormData();
+        console.log(this.form.getRawValue())
+        debugger
+        buildRedmineCustomFields(this.form.getRawValue());
+        // Resetear formulario después de 3 segundos
+        setTimeout(() => {
+          this.resetForm();
+          this.submitted = false;
+          this.serverResponse = null;
+        }, 3000);
+      } catch (error) {
+        this.serverResponse = {
+          success: false,
+          message: 'Error al enviar el formulario. Por favor intenta nuevamente.'
+        };
+        this.form.enable();
+      }
+    } else {
+      this.scrollToFirstInvalidControl();
+    }
+  }
 
   resetForm(): void {
     if (confirm('¿Estás seguro que deseas limpiar todo el formulario?')) {
